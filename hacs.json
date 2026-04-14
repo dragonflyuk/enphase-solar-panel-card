@@ -1,0 +1,7 @@
+{
+  "name": "Enphase Solar Panel Card",
+  "filename": "enphase-solar-panel-card.js",
+  "content_in_root": true,
+  "render_readme": true,
+  "homeassistant": "2023.6.0"
+}
