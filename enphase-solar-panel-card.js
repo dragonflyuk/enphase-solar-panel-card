@@ -68,14 +68,14 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
   _buildSkeleton() {
     const cfg = this.config;
-    const title = cfg.title != null ? cfg.title : 'Solar Panels';
+    const title = cfg.title || '';
 
     const panelHTML = cfg.inverters.map((inv, i) => {
-      const name = inv.name || `Panel ${i + 1}`;
+      const name = inv.name || '';
       const cells = Array(12).fill('<div class="cell"></div>').join('');
       return `
         <div class="panel-tile" data-idx="${i}" data-entity="${inv.power_entity}">
-          <div class="panel-name">${name}</div>
+          ${name ? `<div class="panel-name">${name}</div>` : ''}
           <div class="solar-panel">
             <div class="frame-top"></div>
             <div class="panel-body">
@@ -211,7 +211,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        gap: 12px;
+        gap: 6px;
         overflow-x: auto;
         padding-bottom: 6px;
         scrollbar-width: thin;
