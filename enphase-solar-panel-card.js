@@ -4,7 +4,7 @@
  *
  * Displays each Enphase microinverter as a portrait solar panel tile
  * in a horizontal scrollable row, with current power (W) and optional
- * daily energy (kWh) per panel.
+ * daily energy (Wh / kWh) per panel.
  *
  * HACS / Manual installation:
  *   Copy this file to /config/www/enphase-solar-panel-card.js
@@ -15,17 +15,17 @@
  *   title: Solar Array
  *   max_power: 300
  *   inverters:
- *     - power_entity: sensor.envoy_123456_microinverter_111111
- *       energy_entity: sensor.solar_daily_111111   # optional
+ *     - power_entity: sensor.inverter_122345007737_watts
+ *       energy_entity: sensor.inverter_122345007737_today_s_energy_production
  *       name: "W1"
- *     - power_entity: sensor.envoy_123456_microinverter_222222
+ *     - power_entity: sensor.inverter_122345007738_watts
+ *       energy_entity: sensor.inverter_122345007738_today_s_energy_production
  *       name: "W2"
  *
- * Energy entity note:
- *   The standard Enphase Envoy integration exposes power (W) per microinverter.
- *   To get daily kWh, create a Riemann Sum Integral helper for each inverter
- *   (Settings → Devices & Services → Helpers) then wrap it with a Utility Meter
- *   helper to get an automatically-resetting daily total.
+ * Entity naming (Enphase Envoy integration):
+ *   Power (W) : sensor.inverter_<SERIAL>_watts
+ *   Daily (Wh): sensor.inverter_<SERIAL>_today_s_energy_production
+ *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
 const CARD_VERSION = '1.0.0';
@@ -86,7 +86,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
           </div>
           <div class="panel-stats">
             <div class="power" data-stat="power">—<span class="unit"> W</span></div>
-            <div class="energy${inv.energy_entity ? '' : ' hidden'}" data-stat="energy">—<span class="unit"> kWh</span></div>
+            <div class="energy${inv.energy_entity ? '' : ' hidden'}" data-stat="energy">—<span class="unit"> Wh</span></div>
           </div>
         </div>`;
     }).join('');
@@ -131,12 +131,14 @@ class EnphaseSolarPanelCard extends HTMLElement {
         watts = parseFloat(pState.state) || 0;
       }
 
-      // Energy (optional)
-      let dailyKwh = null;
+      // Energy (optional) — read value and unit directly from the entity
+      let energyValue = null;
+      let energyUnit = 'Wh';
       if (inv.energy_entity) {
         const eState = hass.states[inv.energy_entity];
         if (eState && eState.state !== 'unavailable' && eState.state !== 'unknown') {
-          dailyKwh = parseFloat(eState.state);
+          energyValue = parseFloat(eState.state);
+          energyUnit = (eState.attributes && eState.attributes.unit_of_measurement) || 'Wh';
         }
       }
 
@@ -154,9 +156,18 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
       const energyEl = tile.querySelector('[data-stat="energy"]');
       if (energyEl && inv.energy_entity) {
-        energyEl.innerHTML = dailyKwh !== null
-          ? `${dailyKwh.toFixed(2)}<span class="unit"> kWh</span>`
-          : `—<span class="unit"> kWh</span>`;
+        if (energyValue !== null) {
+          // Show as kWh if the unit is Wh and the value is large enough to read nicely
+          const displayWh = energyUnit === 'Wh' || energyUnit === 'wh';
+          const displayVal = displayWh
+            ? (energyValue >= 1000
+                ? `${(energyValue / 1000).toFixed(2)}<span class="unit"> kWh</span>`
+                : `${Math.round(energyValue)}<span class="unit"> Wh</span>`)
+            : `${energyValue.toFixed(2)}<span class="unit"> ${energyUnit}</span>`;
+          energyEl.innerHTML = displayVal;
+        } else {
+          energyEl.innerHTML = `—<span class="unit"> Wh</span>`;
+        }
       }
     });
   }
@@ -376,9 +387,21 @@ class EnphaseSolarPanelCard extends HTMLElement {
       title: 'Solar Array',
       max_power: 300,
       inverters: [
-        { power_entity: 'sensor.envoy_123456_microinverter_111111', name: 'Panel 1' },
-        { power_entity: 'sensor.envoy_123456_microinverter_222222', name: 'Panel 2' },
-        { power_entity: 'sensor.envoy_123456_microinverter_333333', name: 'Panel 3' },
+        {
+          power_entity: 'sensor.inverter_122345007737_watts',
+          energy_entity: 'sensor.inverter_122345007737_today_s_energy_production',
+          name: 'Panel 1',
+        },
+        {
+          power_entity: 'sensor.inverter_122345007738_watts',
+          energy_entity: 'sensor.inverter_122345007738_today_s_energy_production',
+          name: 'Panel 2',
+        },
+        {
+          power_entity: 'sensor.inverter_122345007739_watts',
+          energy_entity: 'sensor.inverter_122345007739_today_s_energy_production',
+          name: 'Panel 3',
+        },
       ],
     };
   }
