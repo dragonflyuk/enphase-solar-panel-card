@@ -14,6 +14,7 @@
  *   type: custom:enphase-solar-panel-card
  *   title: Solar Array
  *   max_power: 300
+ *   panel_justify: center   # left (default) | center | right
  *   inverters:
  *     - power_entity: sensor.inverter_122345007737_watts
  *       energy_entity: sensor.inverter_122345007737_today_s_energy_production
@@ -48,6 +49,9 @@ class EnphaseSolarPanelCard extends HTMLElement {
         throw new Error(`enphase-solar-panel-card: inverters[${i}] must have a power_entity`);
       }
     });
+    if (config.panel_justify && !['left', 'center', 'right'].includes(config.panel_justify)) {
+      throw new Error('enphase-solar-panel-card: panel_justify must be left, center, or right');
+    }
     this.config = config;
     this._initialized = false;
   }
@@ -91,11 +95,14 @@ class EnphaseSolarPanelCard extends HTMLElement {
         </div>`;
     }).join('');
 
+    const justifyMap = { left: 'flex-start', center: 'center', right: 'flex-end' };
+    const justifyContent = justifyMap[cfg.panel_justify] || 'flex-start';
+
     this.shadowRoot.innerHTML = `
       <style>${this._styles()}</style>
       <div class="card">
         ${title ? `<div class="card-title">${title}</div>` : ''}
-        <div class="panels-row">${panelHTML}</div>
+        <div class="panels-row" style="justify-content:${justifyContent}">${panelHTML}</div>
       </div>`;
 
     // Click → more-info dialog
@@ -386,6 +393,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
     return {
       title: 'Solar Array',
       max_power: 300,
+      panel_justify: 'left',
       inverters: [
         {
           power_entity: 'sensor.inverter_122345007737_watts',
