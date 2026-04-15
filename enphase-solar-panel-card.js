@@ -29,7 +29,7 @@
  *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
-const CARD_VERSION = '1.1.1';
+const CARD_VERSION = '1.1.2';
 
 class EnphaseSolarPanelCard extends HTMLElement {
   constructor() {
@@ -46,6 +46,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
           el.style.setProperty('box-shadow', 'none', 'important');
           el.style.setProperty('margin-top', '0', 'important');
+          el.style.setProperty('align-self', 'start', 'important');
           const s = getComputedStyle(el);
           const bw = s.getPropertyValue('--ha-card-border-width').trim() || '1px';
           const bc = s.getPropertyValue('--ha-card-border-color').trim() || 'rgba(255,255,255,0.12)';
