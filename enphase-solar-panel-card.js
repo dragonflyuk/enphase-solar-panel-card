@@ -46,6 +46,10 @@ class EnphaseSolarPanelCard extends HTMLElement {
         el = el.parentNode || el.host;
         if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
           el.style.setProperty('box-shadow', 'none', 'important');
+          const style = getComputedStyle(el);
+          const bw = style.getPropertyValue('--ha-card-border-width').trim() || '1px';
+          const bc = style.getPropertyValue('--ha-card-border-color').trim() || 'rgba(255,255,255,0.12)';
+          el.style.setProperty('border', `${bw} solid ${bc}`, 'important');
           break;
         }
         if (!el.parentNode && !el.host) break;
@@ -219,7 +223,6 @@ class EnphaseSolarPanelCard extends HTMLElement {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
         border-radius: var(--ha-card-border-radius, 12px);
         box-shadow: none;
-        border: var(--ha-card-border-width, 1px) solid var(--ha-card-border-color, rgba(255,255,255,0.12));
         padding: 12px;
         overflow: hidden;
         box-sizing: border-box;
