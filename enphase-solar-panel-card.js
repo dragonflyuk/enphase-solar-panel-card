@@ -29,33 +29,13 @@
  *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
-const CARD_VERSION = '1.1.2';
+const CARD_VERSION = '1.1.3';
 
 class EnphaseSolarPanelCard extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this._initialized = false;
-  }
-
-  connectedCallback() {
-    requestAnimationFrame(() => {
-      let el = this;
-      while (el.parentNode || el.host) {
-        el = el.parentNode || el.host;
-        if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
-          el.style.setProperty('box-shadow', 'none', 'important');
-          el.style.setProperty('margin-top', '0', 'important');
-          el.style.setProperty('align-self', 'start', 'important');
-          const s = getComputedStyle(el);
-          const bw = s.getPropertyValue('--ha-card-border-width').trim() || '1px';
-          const bc = s.getPropertyValue('--ha-card-border-color').trim() || 'rgba(255,255,255,0.12)';
-          el.style.setProperty('border', `${bw} solid ${bc}`, 'important');
-          break;
-        }
-        if (!el.parentNode && !el.host) break;
-      }
-    });
   }
 
   // ── Config ─────────────────────────────────────────────────────────────────
@@ -214,7 +194,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
   _styles() {
     return `
-      :host { display: block; align-self: start; }
+      :host { display: block; }
 
       .card {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
