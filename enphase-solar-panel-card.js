@@ -197,7 +197,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
       :host { display: block; }
 
       ha-card {
-        padding: 6px 12px;
+        padding: 14px 12px;
         overflow: hidden;
         box-sizing: border-box;
       }
