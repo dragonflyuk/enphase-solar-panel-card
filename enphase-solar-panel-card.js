@@ -200,7 +200,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
         border-radius: var(--ha-card-border-radius, 12px);
         box-shadow: var(--ha-card-box-shadow, 0 2px 8px rgba(0,0,0,.3));
-        padding: 20px;
+        padding: 12px;
         overflow: hidden;
         box-sizing: border-box;
       }
@@ -209,7 +209,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         font-size: 1rem;
         font-weight: 600;
         letter-spacing: .02em;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
         color: var(--primary-text-color, #e5e7eb);
       }
 
@@ -218,9 +218,9 @@ class EnphaseSolarPanelCard extends HTMLElement {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        gap: 8px;
+        gap: 5px;
         overflow-x: auto;
-        padding-bottom: 6px;
+        padding-bottom: 4px;
         scrollbar-width: thin;
         scrollbar-color: rgba(255,255,255,.15) transparent;
       }
@@ -236,7 +236,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 9px;
+        gap: 6px;
         cursor: pointer;
         user-select: none;
         flex-shrink: 0;
@@ -259,7 +259,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
       /* Solar panel shell */
       .solar-panel {
         width: 62px;
-        height: 124px;
+        height: 152px;
         display: flex;
         flex-direction: column;
         border-radius: 5px;
