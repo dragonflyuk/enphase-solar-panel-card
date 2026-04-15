@@ -199,7 +199,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
       .card {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
         border-radius: var(--ha-card-border-radius, 12px);
-        box-shadow: var(--ha-card-box-shadow, none);
+        box-shadow: none;
         padding: 12px;
         overflow: hidden;
         box-sizing: border-box;
