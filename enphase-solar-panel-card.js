@@ -29,7 +29,7 @@
  *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
-const CARD_VERSION = '1.1.3';
+const CARD_VERSION = '1.1.4';
 
 class EnphaseSolarPanelCard extends HTMLElement {
   constructor() {
@@ -100,10 +100,10 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>${this._styles()}</style>
-      <div class="card">
+      <ha-card>
         ${title ? `<div class="card-title">${title}</div>` : ''}
         <div class="panels-row" style="justify-content:${justifyContent}">${panelHTML}</div>
-      </div>`;
+      </ha-card>`;
 
     // Click → more-info dialog
     this.shadowRoot.querySelectorAll('.panel-tile').forEach(tile => {
@@ -196,11 +196,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
     return `
       :host { display: block; }
 
-      .card {
-        background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
-        border-radius: var(--ha-card-border-radius, 12px);
-        box-shadow: var(--ha-card-box-shadow, none);
-        border: var(--ha-card-border-width, 1px) solid var(--ha-card-border-color, rgba(255,255,255,0.12));
+      ha-card {
         padding: 12px;
         overflow: hidden;
         box-sizing: border-box;
