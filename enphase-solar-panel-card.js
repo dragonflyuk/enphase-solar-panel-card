@@ -29,7 +29,7 @@
  *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
-const CARD_VERSION = '1.1.0';
+const CARD_VERSION = '1.1.1';
 
 class EnphaseSolarPanelCard extends HTMLElement {
   constructor() {
@@ -213,7 +213,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
   _styles() {
     return `
-      :host { display: block; }
+      :host { display: block; align-self: start; }
 
       .card {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
