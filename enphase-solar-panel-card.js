@@ -404,7 +404,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
   // ── HA card helpers ─────────────────────────────────────────────────────────
 
   getCardSize() {
-    return 4;
+    return 3;
   }
 
   static getStubConfig() {
