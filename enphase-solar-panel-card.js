@@ -29,32 +29,13 @@
  *   Find your serial numbers under Settings → Devices & Services → Enphase Envoy.
  */
 
-const CARD_VERSION = '1.2.0';
+const CARD_VERSION = '1.1.0';
 
 class EnphaseSolarPanelCard extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
     this._initialized = false;
-  }
-
-  connectedCallback() {
-    // Remove shadow from the hui-card wrapper HA puts around custom elements
-    requestAnimationFrame(() => {
-      let el = this;
-      while (el.parentNode || el.host) {
-        el = el.parentNode || el.host;
-        if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
-          el.style.setProperty('box-shadow', 'none', 'important');
-          const style = getComputedStyle(el);
-          const bw = style.getPropertyValue('--ha-card-border-width').trim() || '1px';
-          const bc = style.getPropertyValue('--ha-card-border-color').trim() || 'rgba(255,255,255,0.12)';
-          el.style.setProperty('border', `${bw} solid ${bc}`, 'important');
-          break;
-        }
-        if (!el.parentNode && !el.host) break;
-      }
-    });
   }
 
   // ── Config ─────────────────────────────────────────────────────────────────
@@ -213,16 +194,12 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
   _styles() {
     return `
-      :host {
-        display: block;
-        box-shadow: none !important;
-        border-radius: var(--ha-card-border-radius, 12px);
-      }
+      :host { display: block; }
 
       .card {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
         border-radius: var(--ha-card-border-radius, 12px);
-        box-shadow: none;
+        box-shadow: var(--ha-card-box-shadow, 0 2px 8px rgba(0,0,0,.3));
         padding: 12px;
         overflow: hidden;
         box-sizing: border-box;
@@ -282,7 +259,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
       /* Solar panel shell */
       .solar-panel {
         width: 62px;
-        height: 123px;
+        height: 118px;
         display: flex;
         flex-direction: column;
         border-radius: 5px;
