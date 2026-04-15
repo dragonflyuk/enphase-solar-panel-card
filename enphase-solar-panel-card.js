@@ -220,7 +220,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         align-items: flex-start;
         gap: 5px;
         overflow-x: auto;
-        padding-bottom: 4px;
+        padding: 4px 6px 6px;
         scrollbar-width: thin;
         scrollbar-color: rgba(255,255,255,.15) transparent;
       }
@@ -259,7 +259,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
       /* Solar panel shell */
       .solar-panel {
         width: 62px;
-        height: 152px;
+        height: 118px;
         display: flex;
         flex-direction: column;
         border-radius: 5px;
