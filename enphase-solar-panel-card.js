@@ -250,7 +250,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         font-weight: 500;
         color: var(--secondary-text-color, #9ca3af);
         text-align: center;
-        max-width: 88px;
+        max-width: 72px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -258,7 +258,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
       /* Solar panel shell */
       .solar-panel {
-        width: 76px;
+        width: 62px;
         height: 124px;
         display: flex;
         flex-direction: column;
