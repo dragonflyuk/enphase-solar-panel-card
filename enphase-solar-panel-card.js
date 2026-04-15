@@ -200,7 +200,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         background: var(--ha-card-background, var(--card-background-color, #1c1c1e));
         border-radius: var(--ha-card-border-radius, 12px);
         box-shadow: var(--ha-card-box-shadow, 0 2px 8px rgba(0,0,0,.3));
-        padding: 16px;
+        padding: 20px;
         overflow: hidden;
         box-sizing: border-box;
       }
@@ -209,7 +209,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         font-size: 1rem;
         font-weight: 600;
         letter-spacing: .02em;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         color: var(--primary-text-color, #e5e7eb);
       }
 
@@ -218,7 +218,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        gap: 6px;
+        gap: 8px;
         overflow-x: auto;
         padding-bottom: 6px;
         scrollbar-width: thin;
@@ -236,7 +236,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 7px;
+        gap: 9px;
         cursor: pointer;
         user-select: none;
         flex-shrink: 0;
@@ -246,11 +246,11 @@ class EnphaseSolarPanelCard extends HTMLElement {
       .panel-tile:active { transform: scale(.96); }
 
       .panel-name {
-        font-size: .68rem;
+        font-size: .75rem;
         font-weight: 500;
         color: var(--secondary-text-color, #9ca3af);
         text-align: center;
-        max-width: 72px;
+        max-width: 88px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -258,8 +258,8 @@ class EnphaseSolarPanelCard extends HTMLElement {
 
       /* Solar panel shell */
       .solar-panel {
-        width: 62px;
-        height: 102px;
+        width: 76px;
+        height: 124px;
         display: flex;
         flex-direction: column;
         border-radius: 5px;
@@ -358,18 +358,18 @@ class EnphaseSolarPanelCard extends HTMLElement {
       .panel-stats { text-align: center; line-height: 1.35; }
 
       .power {
-        font-size: .82rem;
+        font-size: .95rem;
         font-weight: 700;
         color: var(--pc, var(--primary-text-color, #e5e7eb));
         transition: color .4s ease;
       }
 
       .energy {
-        font-size: .68rem;
+        font-size: .78rem;
         color: var(--secondary-text-color, #9ca3af);
       }
 
-      .unit { font-size: .62rem; font-weight: 400; opacity: .8; }
+      .unit { font-size: .7rem; font-weight: 400; opacity: .8; }
 
       .hidden { display: none; }
 
@@ -386,7 +386,7 @@ class EnphaseSolarPanelCard extends HTMLElement {
   // ── HA card helpers ─────────────────────────────────────────────────────────
 
   getCardSize() {
-    return 3;
+    return 4;
   }
 
   static getStubConfig() {
