@@ -38,6 +38,24 @@ class EnphaseSolarPanelCard extends HTMLElement {
     this._initialized = false;
   }
 
+  connectedCallback() {
+    requestAnimationFrame(() => {
+      let el = this;
+      while (el.parentNode || el.host) {
+        el = el.parentNode || el.host;
+        if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
+          el.style.setProperty('box-shadow', 'none', 'important');
+          const s = getComputedStyle(el);
+          const bw = s.getPropertyValue('--ha-card-border-width').trim() || '1px';
+          const bc = s.getPropertyValue('--ha-card-border-color').trim() || 'rgba(255,255,255,0.12)';
+          el.style.setProperty('border', `${bw} solid ${bc}`, 'important');
+          break;
+        }
+        if (!el.parentNode && !el.host) break;
+      }
+    });
+  }
+
   // ── Config ─────────────────────────────────────────────────────────────────
 
   setConfig(config) {
