@@ -38,6 +38,21 @@ class EnphaseSolarPanelCard extends HTMLElement {
     this._initialized = false;
   }
 
+  connectedCallback() {
+    // Remove shadow from the hui-card wrapper HA puts around custom elements
+    requestAnimationFrame(() => {
+      let el = this;
+      while (el.parentNode || el.host) {
+        el = el.parentNode || el.host;
+        if (el.tagName && el.tagName.toLowerCase() === 'hui-card') {
+          el.style.setProperty('box-shadow', 'none', 'important');
+          break;
+        }
+        if (!el.parentNode && !el.host) break;
+      }
+    });
+  }
+
   // ── Config ─────────────────────────────────────────────────────────────────
 
   setConfig(config) {
